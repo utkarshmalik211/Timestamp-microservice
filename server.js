@@ -8,6 +8,10 @@ app.get('/',function(req,res){
 })
 app.get('/:query',function(req,res){
 	var number = parseInt(req.params.query);
+	var time = {
+			unix: null,
+			natural : null
+		}
 	if(!isNaN(number)){
 		var date = new Date(number*1000);
 		var nat = date.getMonth()+1;
@@ -49,14 +53,13 @@ app.get('/:query',function(req,res){
 		        var month = "December";
 		        break;            
 		      default:
-		        var month = "Unknown";
+		        var month = null;
 		    }
 		//res.send(hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)+date.getFullYear().toString());
 		var time = {
 			unix: number,
-			natural : month+" "+date.getDate()+","+date.getFullYear()
+			natural : month+" "+date.getDate()+", "+date.getFullYear()
 		}
-		res.json(time);
 	}else{
 		var date = new Date((req.params.query).toString());
 		var nat = date.getMonth()+1;
@@ -98,13 +101,15 @@ app.get('/:query',function(req,res){
 		        var month = "December";
 		        break;            
 		      default:
-		        var month = "Unknown";
+		        var month = null;
 		    }
-		var time = {
-			unix: date.getTime()/1000,
-			natural : month+" "+date.getDate()+","+date.getFullYear()
+		if(date.toString()!="Invalid Date"){
+			var time = {
+				unix: date.getTime()/1000,
+				natural : month+" "+date.getDate()+", "+date.getFullYear()
+			}
 		}
-		res.json(time);
 	}
+	res.json(time);
 })
 app.listen(3000);
