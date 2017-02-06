@@ -54,7 +54,7 @@ app.get('/:query',function(req,res){
 		//res.send(hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)+date.getFullYear().toString());
 		var time = {
 			unix: number,
-			natural : month+" "+date.getDay()+","+date.getFullYear()
+			natural : month+" "+date.getDate()+","+date.getFullYear()
 		}
 		res.json(time);
 	}else{
@@ -102,7 +102,7 @@ app.get('/:query',function(req,res){
 		    }
 		var time = {
 			unix: date.getTime()/1000,
-			natural : month+" "+date.getDay()+","+date.getFullYear()
+			natural : month+" "+date.getDate()+","+date.getFullYear()
 		}
 		res.json(time);
 	}
